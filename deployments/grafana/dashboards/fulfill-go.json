@@ -1,0 +1,45 @@
+{
+  "annotations": {"list": []},
+  "editable": true,
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Orders created",
+      "targets": [{"expr": "sum(fulfill_orders_created_total)", "refId": "A"}],
+      "gridPos": {"h": 8, "w": 6, "x": 0, "y": 0}
+    },
+    {
+      "type": "timeseries",
+      "title": "HTTP requests / second",
+      "targets": [{"expr": "sum by (route, status) (rate(fulfill_http_requests_total[1m]))", "refId": "A"}],
+      "gridPos": {"h": 8, "w": 9, "x": 6, "y": 0}
+    },
+    {
+      "type": "timeseries",
+      "title": "Worker results / second",
+      "targets": [{"expr": "sum by (result) (rate(fulfill_kafka_messages_total[1m]))", "refId": "A"}],
+      "gridPos": {"h": 8, "w": 9, "x": 15, "y": 0}
+    },
+    {
+      "type": "timeseries",
+      "title": "Worker queue depth",
+      "targets": [{"expr": "fulfill_worker_queue_depth", "refId": "A"}],
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8}
+    },
+    {
+      "type": "timeseries",
+      "title": "HTTP p95 latency",
+      "targets": [{"expr": "histogram_quantile(0.95, sum by (le, route) (rate(fulfill_http_request_duration_seconds_bucket[5m])))", "refId": "A"}],
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8}
+    }
+  ],
+  "schemaVersion": 39,
+  "tags": ["fulfill-go"],
+  "templating": {"list": []},
+  "time": {"from": "now-15m", "to": "now"},
+  "timezone": "browser",
+  "title": "FulfillGo",
+  "uid": "fulfill-go",
+  "version": 1
+}
+

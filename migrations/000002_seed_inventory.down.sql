@@ -1,0 +1,3 @@
+DELETE FROM inventory
+WHERE sku IN ('PHONE-001', 'CASE-001', 'CHARGER-001');
+
